@@ -59,40 +59,43 @@ class Solution
 {
     void merge(int arr[], int l, int m, int r)
     {
+        int a1 = l;
+        int a2 = m + 1;
         ArrayList<Integer> temp = new ArrayList<>();
-        int left = l;
-        int right = m + 1;
         
-        while(left <= m && right <= r) {
-            if (arr[left] <= arr[right]) {
-                temp.add(arr[left]);
-                left++;
+        while(a1 <= m && a2 <= r) {
+            if(arr[a1] < arr[a2]) {
+                temp.add(arr[a1]);
+                a1++;
             } else {
-                temp.add(arr[right]);
-                right++;
+                temp.add(arr[a2]);
+                a2++;
             }
         }
         
-        while (left <= m) {
-            temp.add(arr[left]);
-            left++;
+        while(a1 <= m) {
+            temp.add(arr[a1]);
+            a1++;
         }
         
-        while (right <= r) {
-            temp.add(arr[right]);
-            right++;
+        while(a2 <= r) {
+            temp.add(arr[a2]);
+            a2++;
         }
         
-        for(int i = l; i <= r; i++) {
-            arr[i] = temp.get(i - l);
+        for(int i = 0; i < temp.size(); i++) {
+            arr[l + i] = temp.get(i);
         }
-        
     }
     void mergeSort(int arr[], int l, int r)
     {
-        if (l >= r) return;
+        //code here
+        if(l >= r) {
+            return;
+        }
         
         int mid = (l + r) / 2;
+        
         mergeSort(arr, l, mid);
         mergeSort(arr, mid + 1, r);
         
