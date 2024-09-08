@@ -24,30 +24,31 @@ class GFG {
 // } Driver Code Ends
 
 
-
 class Solution {
     static Long[] lcmAndGcd(Long A , Long B) {
-        Long[] result = new Long[2]; 
-        Long gcd;
-        Long lcm;
+        // code here
+        Long[] ans = new Long[2];
         
-        Long originalA = A;
-        Long originalB = B;
         
-        while (A > 0 && B > 0) {
-            if (A > B) {
+        ans[1] = gcd(A, B);
+        ans[0] = (A * B) / ans[1];
+        
+        return ans;
+    }
+    
+    static Long gcd(Long A, Long B) {
+        while(A > 0 && B > 0) {
+            if(A > B) {
                 A = A % B;
             } else {
                 B = B % A;
             }
         }
-        gcd = (A == 0) ? B : A;
         
-        lcm = (originalA * originalB) / gcd;
+        if( A == 0) {
+            return B;
+        }
         
-        result[0] = lcm;
-        result[1] = gcd;
-    
-        return result;
+        return A;
     }
 };
