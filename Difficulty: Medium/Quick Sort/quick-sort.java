@@ -36,32 +36,43 @@ class Solution
     //Function to sort an array using quick sort algorithm.
     static void quickSort(int arr[], int low, int high)
     {
-        if (low < high) {
-        int pI = partition(arr, low, high);
-        quickSort(arr, low, pI - 1);
-        quickSort(arr, pI + 1, high);   
+        // code here\
+        if(low < high) {
+            int pI = partition(arr, low, high);
+            
+            quickSort(arr, low, pI);
+            quickSort(arr, pI + 1, high);
         }
     }
-    
     static int partition(int arr[], int low, int high)
     {
-        int pivot = arr[high];
-        int pivotIndex = low - 1;
+        // your code here
+        int pivot = arr[low];
+        int i = low;
+        int j = high;
         
-        for (int i = low; i <= high; i++) {
-            if (arr[i] < pivot) {
-                pivotIndex++;
-                swap(arr, pivotIndex, i);
+        while(i < j) {
+            while(arr[i] <= pivot && i < high) {
+                i++;
+            }
+            
+            while(arr[j] >= pivot && j > low) {
+                j--;
+            }
+            
+            if(i < j) {
+                swap(arr, i, j);
             }
         }
         
-        swap(arr,pivotIndex + 1, high);
-        return (pivotIndex + 1);
+        swap(arr, low, j);
+        
+        return j;
     }
     
-    static void swap(int[] arr, int i, int j) {
-        int temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
+    static void swap(int[] arr, int a, int b) {
+        int temp =arr[a];
+        arr[a] = arr[b];
+        arr[b] = temp;
     }
 }
