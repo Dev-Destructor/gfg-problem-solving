@@ -26,21 +26,19 @@ public class Main {
 
 class Solution {
     public int print2largest(int[] arr) {
-        int l = -1;
+        // Code Here
+        int l = arr[0];
         int sL = -1;
         
-        for(int i = 0; i < arr.length; i++) {
-            if(arr[i] > l && arr[i] > sL) {
-                sL = l;
-                l = arr[i];
+        for(int i = 1; i < arr.length; i++) {
+            if(arr[i] > sL && arr[i] != l) {
+                if(arr[i] > l) {
+                    sL = l;
+                    l = arr[i];
+                } else {
+                    sL = arr[i];
+                }
             }
-            else if(arr[i] < l && arr[i] > sL) {
-                sL = arr[i];
-            }
-        }
-        
-        if(l == sL) {
-            return -1;
         }
         
         return sL;
