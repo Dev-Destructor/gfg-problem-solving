@@ -38,23 +38,26 @@ class Sorting
 
 class Solution
 {
-
   //Function to sort the array using insertion sort algorithm.
   public void insertionSort(int arr[], int n)
   {
       //code here
-      for(int i = 0; i < n - 1; i++) {
-          for(int j = i + 1; j > 0; j--) {
-              if(arr[j] < arr[j - 1]) {
-                  swap(arr, j, j - 1);
-              }
-          }
+      if (n == 1) {
+          return;
       }
-  }
-  
-  public void swap(int[] arr, int a, int b) {
-      int temp = arr[a];
-      arr[a] = arr[b];
-      arr[b] = temp;
+      
+            
+      insertionSort(arr, n - 1);
+      
+      int last = arr[n - 1];
+      int j = n - 2;
+      
+      while(j >= 0 && arr[j] > last) {
+          arr[j + 1] = arr[j];
+          j--;
+      }
+      
+      
+      arr[j + 1] = last;
   }
 }
