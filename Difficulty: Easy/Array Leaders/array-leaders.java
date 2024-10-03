@@ -46,21 +46,20 @@ class Array {
 class Solution {
     // Function to find the leaders in the array.
     static ArrayList<Integer> leaders(int n, int arr[]) {
-        ArrayList<Integer> leads = new ArrayList<>();
-        int prevLeader = n - 1;
-        leads.add(arr[prevLeader]);
-       
+        // Your code here
+        ArrayList<Integer> leaders = new ArrayList<>();
         
-        for (int i = n - 2; i >= 0; i--) {
-            if (arr[i] >= arr[prevLeader]) {
-                leads.add(arr[i]);
-                prevLeader = i;
+        int currentLeader = arr[n - 1];
+        leaders.add(currentLeader);
+        
+        for(int i = n - 2; i >= 0; i--) {
+            if(arr[i] >= currentLeader) {
+                currentLeader = arr[i];
+                leaders.add(currentLeader);
             }
-            
         }
         
-        Collections.reverse(leads);
-        
-        return leads;
+        Collections.reverse(leaders);
+        return leaders;
     }
 }
