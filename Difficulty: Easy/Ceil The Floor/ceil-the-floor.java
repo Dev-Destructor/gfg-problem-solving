@@ -18,44 +18,44 @@ public class Main {
             Solution ob = new Solution();
             int[] ans = ob.getFloorAndCeil(x, arr);
             System.out.println(ans[0] + " " + ans[1]);
-        }
+        
+System.out.println("~");
+}
     }
 }
 
 // } Driver Code Ends
 
-
 // User function Template for Java
-
 class Solution {
     public int[] getFloorAndCeil(int x, int[] arr) {
         // code here
-        int[] ans = new int[2];
-        int floor = Integer.MIN_VALUE;
-        int ceil = Integer.MAX_VALUE;
+        int n = arr.length;
+        int c = Integer.MAX_VALUE, f = Integer.MIN_VALUE;
         
-        
-        for(int i = 0; i < arr.length; i++) {
-            if(arr[i] >= x && arr[i] <= ceil) {
-                ceil = arr[i];
+        for(int i = 0; i < n; i++) {
+            if(arr[i] > x && arr[i] < c) {
+                c = arr[i];    
+            } else if(arr[i] < x && arr[i] > f) {
+                f = arr[i];
+            } else if(arr[i] == x) {
+                return new int[] {arr[i], arr[i]};
             }
-            if(arr[i] <= x && arr[i] >= floor) {
-                floor = arr[i];
+            else {
+                continue;
             }
         }
         
-        if(ceil == Integer.MAX_VALUE) {
-            ceil = -1;
-        } 
-        
-        if(floor == Integer.MIN_VALUE) {
-            floor = -1;
+        if(c == Integer.MAX_VALUE) {
+            c = -1;
         }
         
-        ans[0] = floor;
-        ans[1] = ceil;
+        if(f == Integer.MIN_VALUE) {
+            f = -1;
+        }
         
-        
-        return ans;
+        return new int[] {f, c};
     }
 }
+
+// i > x  
