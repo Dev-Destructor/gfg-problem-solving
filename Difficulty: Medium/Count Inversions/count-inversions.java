@@ -22,50 +22,50 @@ class Sorting {
 
 class Solution {
     // Function to count inversions in the array.
-    static int merge(int arr[], int low, int mid, int high) {
+    static int merge(int arr[], int l, int m, int h) {
+        int cnt = 0, lt = l, rt = m + 1;
         ArrayList<Integer> temp = new ArrayList<>();
-        int cnt = 0;
-        int left = low;
-        int right = mid + 1;
         
-        while(left <= mid && right <= high) {
-            if(arr[left] <= arr[right]) {
-                temp.add(arr[left]);
-                left++;
+        while(lt <= m && rt <= h) {
+            if (arr[lt] <= arr[rt]) {
+                temp.add(arr[lt]);
+                lt++;
             } else {
-                temp.add(arr[right]);
-                cnt += (mid - left + 1);
-                right++;
+                temp.add(arr[rt]);
+                rt++;
+                cnt += (m - lt) + 1;
             }
         }
         
-        while(left <= mid) {
-            temp.add(arr[left]);
-            left++;
+        while(lt <= m) {
+            temp.add(arr[lt]);
+            lt++;
         }
         
-        while(right <= high) {
-            temp.add(arr[right]);
-            right++;
+        while(rt <= h) {
+            temp.add(arr[rt]);
+            rt++;
         }
         
-        for (int i = low; i <= high; i++) {
-            arr[i] = temp.get(i - low);
+        for (int i = l; i <= h; i++) {
+            arr[i] = temp.get(i - l);
         }
         
         return cnt;
     }
     
-    static int mergeSort(int arr[], int low, int high) {
+    static int mergeSort(int arr[], int l, int h) {
         int cnt = 0;
-        if(low >= high) return cnt;
         
-        int mid = (low + high) / 2;
+        if (l >= h) {
+            return cnt;
+        }
         
+        int m = (l + h) / 2;
         
-        cnt += mergeSort(arr, low, mid);
-        cnt += mergeSort(arr, mid + 1, high);
-        cnt += merge(arr, low, mid, high);
+        cnt += mergeSort(arr, l, m);
+        cnt += mergeSort(arr, m + 1, h);
+        cnt += merge(arr, l, m, h);
         
         return cnt;
     }
