@@ -14,6 +14,7 @@ class Node {
 
 
 // } Driver Code Ends
+
 /*Complete the function below*/
 /*
 class Node{
@@ -26,20 +27,18 @@ class Solution {
     // Function to count nodes of a linked list.
     public int getCount(Node head) {
         // code here
-        if(head == null) {
-            return 0;    
-        }
-        
         int count = 0;
+        Node cur = head;
         
-        while(head != null) {
+        while (cur != null) {
+            cur = cur.next;
             count++;
-            head = head.next;
         }
         
         return count;
     }
 }
+
 
 //{ Driver Code Starts.
 
