@@ -52,14 +52,11 @@ class GFG {
 class Solution {
     static boolean searchKey(int n, Node head, int key) {
         // Code here
-        Node current = head;
+        Node cur = head;
         
-        while(current.next != null) {
-            if(current.data == key) {
-                return true;
-            }
-            
-            current = current.next;
+        while(cur != null) {
+            if(cur.data == key) return true;
+            cur = cur.next;
         }
         
         return false;
