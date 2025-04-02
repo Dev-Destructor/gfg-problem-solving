@@ -1,68 +1,69 @@
 //{ Driver Code Starts
 // Initial Template for Java
-import java.util.*;
-import java.lang.*;
 import java.io.*;
+import java.util.*;
+
+
+// } Driver Code Ends
+
+// User function Template for Java
+class Solution {
+    public ArrayList<Integer> bfs(ArrayList<ArrayList<Integer>> adj) {
+        // code here
+        int numVertex = adj.size();
+        boolean visited [] = new boolean[numVertex];
+        ArrayList<Integer> res = new ArrayList<>();
+        int startVertex = 0;
+        
+        ArrayDeque<Integer> q = new ArrayDeque<>();
+        q.add(startVertex);
+        visited[startVertex] = true;
+        while(q.size()>0){
+            int currNode = q.remove();
+            res.add(currNode);
+            for(int neighbour : adj.get(currNode)){
+                if(!visited[neighbour]){
+                    q.add(neighbour);
+                    visited[neighbour]=true;
+                }
+            }
+        }
+        return res;
+    }
+}
+
+
+//{ Driver Code Starts.
+
 class GFG {
     public static void main(String[] args) throws IOException {
-        BufferedReader br =
-            new BufferedReader(new InputStreamReader(System.in));
-        int T = Integer.parseInt(br.readLine().trim());
-        while (T-- > 0) {
-            String[] s = br.readLine().trim().split(" ");
-            int V = Integer.parseInt(s[0]);
-            int E = Integer.parseInt(s[1]);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int tc = Integer.parseInt(br.readLine().trim());
+
+        while (tc-- > 0) {
+            int V = Integer.parseInt(br.readLine().trim());
             ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
-            for (int i = 0; i < V; i++) adj.add(i, new ArrayList<Integer>());
-            for (int i = 0; i < E; i++) {
-                String[] S = br.readLine().trim().split(" ");
-                int u = Integer.parseInt(S[0]);
-                int v = Integer.parseInt(S[1]);
-                adj.get(u).add(v);
-                // adj.get(v).add(u);
+
+            for (int i = 0; i < V; i++) {
+                String[] input = br.readLine().trim().split(" ");
+                ArrayList<Integer> node = new ArrayList<>();
+                for (String s : input) {
+                    if (!s.isEmpty()) {
+                        node.add(Integer.parseInt(s));
+                    }
+                }
+                adj.add(node);
             }
+
             Solution obj = new Solution();
-            ArrayList<Integer> ans = obj.bfsOfGraph(V, adj);
-            for (int i = 0; i < ans.size(); i++)
-                System.out.print(ans.get(i) + " ");
+            ArrayList<Integer> ans = obj.bfs(adj);
+            for (int num : ans) {
+                System.out.print(num + " ");
+            }
             System.out.println();
+            System.out.println("~");
         }
     }
 }
 
 // } Driver Code Ends
-
-
-class Solution {
-    // Function to return Breadth First Traversal of given graph.
-    public ArrayList<Integer> bfsOfGraph(int V, ArrayList<ArrayList<Integer>> adj) {
-        // Code here
-        ArrayList<Integer> vertices = new ArrayList(V);
-        boolean[] visited = new boolean[V];
-        
-        bfs(V, adj, vertices, visited, 0);
-        
-        return vertices;
-    }
-    
-    public void bfs(int V, ArrayList<ArrayList<Integer>> adj, ArrayList<Integer> vertices, boolean[] visited, int start) {
-        Queue<Integer> q = new LinkedList();
-        
-        q.add(start);
-        visited[start] = true;
-        
-        while(!q.isEmpty()) {
-            int vertex = q.remove();
-            vertices.add(vertex);
-            
-            for(int i = 0; i < adj.get(vertex).size(); i++) {
-                int neighbour = adj.get(vertex).get(i);
-                
-                if(!visited[neighbour]) {
-                    q.add(neighbour);
-                    visited[neighbour] = true;
-                }
-            }
-        }
-    }
-}
