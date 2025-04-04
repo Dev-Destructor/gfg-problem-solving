@@ -1,68 +1,68 @@
 //{ Driver Code Starts
-import java.util.*;
-import java.lang.*;
+// Initial Template for Java
 import java.io.*;
+import java.util.*;
+
 class GFG {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br =
-            new BufferedReader(new InputStreamReader(System.in));
-        int T = Integer.parseInt(br.readLine().trim());
-        while (T-- > 0) {
-            String[] s = br.readLine().trim().split(" ");
-            int V = Integer.parseInt(s[0]);
-            int E = Integer.parseInt(s[1]);
-            ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
-            for (int i = 0; i < V; i++) adj.add(i, new ArrayList<Integer>());
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int tc = sc.nextInt();
+        while (tc-- > 0) {
+            int V = sc.nextInt();
+            int E = sc.nextInt();
+            int[][] edges = new int[E][2];
             for (int i = 0; i < E; i++) {
-                String[] S = br.readLine().trim().split(" ");
-                int u = Integer.parseInt(S[0]);
-                int v = Integer.parseInt(S[1]);
-                adj.get(u).add(v);
-                adj.get(v).add(u);
+                edges[i][0] = sc.nextInt();
+                edges[i][1] = sc.nextInt();
             }
+
             Solution obj = new Solution();
-            boolean ans = obj.isCycle(V, adj);
-            if (ans)
-                System.out.println("1");
-            else
-                System.out.println("0");
+            boolean ans = obj.isCycle(V, edges);
+            System.out.println(ans ? "true" : "false");
+            System.out.println("~");
         }
+        sc.close();
     }
 }
+
 // } Driver Code Ends
 
 
 class Solution {
-    // Function to detect cycle in an undirected graph.
-    public boolean isCycle(int V, ArrayList<ArrayList<Integer>> adj) {
-        // Code here
-        boolean[] visited = new boolean[V];
+    public boolean isCycle(int V, int[][] edges) {
+        boolean visited[] = new boolean[V];
         
-        for(int i = 0; i < V; i++) {
-            if(!visited[i]) {
-                if(dfs(V, adj, visited, i, -1)) {
-                    return true;
-                }
+        List<Integer>[] adjacencyList = new ArrayList[V];
+        
+        for (int i = 0; i < V; i++) {
+            adjacencyList[i] = new ArrayList<Integer>();
+        }
+        
+        for (int edge[]: edges) {
+            adjacencyList[edge[0]].add(edge[1]);
+            adjacencyList[edge[1]].add(edge[0]);
+        }
+        
+        for (int i = 0; i < V; i++) {
+            if (hasCycle(i, -1, adjacencyList, visited)) {
+                return true;
             }
         }
         
         return false;
     }
     
-    public static boolean dfs(int V, ArrayList<ArrayList<Integer>> adj, boolean[] visited, int start, int prev) {
-        visited[start] = true;
-        
-        for(int i = 0; i < adj.get(start).size(); i++) {
-            int neighbour = adj.get(start).get(i);
-            
-            if(!visited[neighbour]) {
-                if(dfs(V, adj, visited, neighbour, start)) {
-                    return true;
-                }
-            } else if(neighbour != prev) {
-                    return true;
-            }
+    private boolean hasCycle(int v, int parent, List<Integer>[] adjacencyList, boolean visited[]) {
+        if (visited[v]) {
+            return true;
         }
+        
+        visited[v] = true;
+        for (int neighbour: adjacencyList[v]) {
+            if (neighbour == parent) continue;
+            if (hasCycle(neighbour, v, adjacencyList, visited)) return true;
+        }
+        visited[v] = false;
         
         return false;
     }
